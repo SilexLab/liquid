@@ -45,6 +45,17 @@ class TagFor extends AbstractBlock
 	private $name;
 
 	/**
+	 * @var string / int The name of the variable or integer start value
+	 */
+	private $startRange;
+	
+	/**
+	 * @var string / int The name of the variable or integer start value
+	 */
+	private $endRange;
+
+
+	/**
 	 * Constructor
 	 *
 	 * @param string $markup
@@ -58,10 +69,18 @@ class TagFor extends AbstractBlock
 
 		$syntaxRegexp = new Regexp('/(\w+)\s+in\s+(' . Liquid::get('ALLOWED_VARIABLE_CHARS') . '+)/');
 
+		$syntaxRangeRegexp = new Regexp('/(\w+)\s+in\s+\\((\d+|' . Liquid::get('ALLOWED_VARIABLE_CHARS') . '+)\.\.(\d+|' . Liquid::get('ALLOWED_VARIABLE_CHARS') . '+)\)/');
+
 		if ($syntaxRegexp->match($markup)) {
 			$this->variableName = $syntaxRegexp->matches[1];
 			$this->collectionName = $syntaxRegexp->matches[2];
 			$this->name = $syntaxRegexp->matches[1] . '-' . $syntaxRegexp->matches[2];
+			$this->extractAttributes($markup);
+		} else if ($syntaxRangeRegexp->match($markup)) {
+			$this->collectionName = null;
+			$this->variableName = $syntaxRangeRegexp->matches[1];
+			$this->startRange = $syntaxRangeRegexp->matches[2];
+			$this->endRange = $syntaxRangeRegexp->matches[3];
 			$this->extractAttributes($markup);
 		} else {
 			throw new LiquidException("Syntax Error in 'for loop' - Valid syntax: for [item] in [collection]");
@@ -80,7 +99,18 @@ class TagFor extends AbstractBlock
 			$context->registers['for'] = array();
 		}
 
-		$collection = $context->get($this->collectionName);
+		if (isset($this->startRange) and isset($this->endRange)) {
+			$start = is_numeric($this->startRange) ? $this->startRange : $context->get($this->startRange);
+			$end = is_numeric($this->endRange) ? $this->endRange : $context->get($this->endRange);
+
+			// TO-DO: not memory efficient
+			$collection = array();
+			for($i = $start; $i <= $end; $i++) {
+				$collection[] = $i;
+			}
+		} else {
+			$collection = $context->get($this->collectionName);
+		}
 
 		if (is_null($collection) || !is_array($collection) || count($collection) == 0) {
 			return '';
