@@ -74,13 +74,13 @@ class TagExtends extends AbstractTag
 		$blockstartRegexp = new Regexp('/^' . Liquid::get('TAG_START') . '\s*block (\w+)\s*(.*)?' . Liquid::get('TAG_END') . '$/');
 		$blockendRegexp = new Regexp('/^' . Liquid::get('TAG_START') . '\s*endblock\s*?' . Liquid::get('TAG_END') . '$/');
 
-		$b = array();
+		$b = [];
 		$name = null;
 
 		foreach ($tokens as $token) {
 			if ($blockstartRegexp->match($token)) {
 				$name = $blockstartRegexp->matches[1];
-				$b[$name] = array();
+				$b[$name] = [];
 			} else if ($blockendRegexp->match($token)) {
 				$name = null;
 			} else {
@@ -128,7 +128,7 @@ class TagExtends extends AbstractTag
 
 			$name = null;
 
-			$rest = array();
+			$rest = [];
 			$aufzeichnen = false;
 
 			for ($i = 0; $i < count($maintokens); $i++) {

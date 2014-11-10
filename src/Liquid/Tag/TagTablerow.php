@@ -104,7 +104,7 @@ class TagTablerow extends AbstractBlock
 
 		foreach ($collection as $index => $item) {
 			$context->set($this->variableName, $item);
-			$context->set('tablerowloop', array(
+			$context->set('tablerowloop', [
 				'length' => $length,
 				'index' => $index + 1,
 				'index0' => $index,
@@ -112,7 +112,7 @@ class TagTablerow extends AbstractBlock
 				'rindex0' => $length - $index - 1,
 				'first' => (int)($index == 0),
 				'last' => (int)($index == $length - 1)
-			));
+			]);
 
 			$result .= "<td class=\"col" . (++$col) . "\">" . $this->renderAll($this->nodelist, $context) . "</td>";
 

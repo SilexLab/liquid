@@ -96,7 +96,7 @@ class TagFor extends AbstractBlock
 	 */
 	public function render(Context $context) {
 		if (!isset($context->registers['for'])) {
-			$context->registers['for'] = array();
+			$context->registers['for'] = [];
 		}
 
 		if (isset($this->startRange) and isset($this->endRange)) {
@@ -104,7 +104,7 @@ class TagFor extends AbstractBlock
 			$end = is_numeric($this->endRange) ? $this->endRange : $context->get($this->endRange);
 
 			// TO-DO: not memory efficient
-			$collection = array();
+			$collection = [];
 			for($i = $start; $i <= $end; $i++) {
 				$collection[] = $i;
 			}
@@ -116,7 +116,7 @@ class TagFor extends AbstractBlock
 			return '';
 		}
 
-		$range = array(0, count($collection));
+		$range = [0, count($collection)];
 
 		if (isset($this->attributes['limit']) || isset($this->attributes['offset'])) {
 			$offset = 0;
@@ -127,7 +127,7 @@ class TagFor extends AbstractBlock
 
 			$limit = (isset($this->attributes['limit'])) ? $context->get($this->attributes['limit']) : null;
 			$rangeEnd = $limit ? $limit : count($collection) - $offset;
-			$range = array($offset, $rangeEnd);
+			$range = [$offset, $rangeEnd];
 
 			$context->registers['for'][$this->name] = $rangeEnd + $offset;
 		}
@@ -147,7 +147,7 @@ class TagFor extends AbstractBlock
 
 		foreach ($segment as $index => $item) {
 			$context->set($this->variableName, $item);
-			$context->set('forloop', array(
+			$context->set('forloop', [
 				'name' => $this->name,
 				'length' => $length,
 				'index' => $index + 1,
@@ -156,7 +156,7 @@ class TagFor extends AbstractBlock
 				'rindex0' => $length - $index - 1,
 				'first' => (int)($index == 0),
 				'last' => (int)($index == $length - 1)
-			));
+			]);
 
 			$result .= $this->renderAll($this->nodelist, $context);
 		}

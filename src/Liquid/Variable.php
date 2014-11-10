@@ -59,11 +59,11 @@ class Variable
 				$filterArgumentRegexp->matchAll($filter);
 				$matches = Liquid::arrayFlatten($filterArgumentRegexp->matches[1]);
 
-				$this->filters[] = array($filtername, $matches);
+				$this->filters[] = [$filtername, $matches];
 			}
 
 		} else {
-			$this->filters = array();
+			$this->filters = [];
 		}
 	}
 
@@ -98,7 +98,7 @@ class Variable
 		foreach ($this->filters as $filter) {
 			list($filtername, $filterArgKeys) = $filter;
 
-			$filterArgValues = array();
+			$filterArgValues = [];
 
 			foreach ($filterArgKeys as $arg_key) {
 				$filterArgValues[] = $context->get($arg_key);

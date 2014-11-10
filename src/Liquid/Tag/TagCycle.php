@@ -44,7 +44,7 @@ class TagCycle extends AbstractTag
 	/**
 	 * @var Variable[] The variables to cycle between
 	 */
-	private $variables = array();
+	private $variables = [];
 
 	/**
 	 * Constructor
@@ -112,7 +112,7 @@ class TagCycle extends AbstractTag
 	private function variablesFromString($markup) {
 		$regexp = new Regexp('/\s*(' . Liquid::get('QUOTED_FRAGMENT') . ')\s*/');
 		$parts = explode(',', $markup);
-		$result = array();
+		$result = [];
 
 		foreach ($parts as $part) {
 			$regexp->match($part);

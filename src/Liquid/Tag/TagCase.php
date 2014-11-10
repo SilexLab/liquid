@@ -65,8 +65,8 @@ class TagCase extends Decision
 	 * @throws \Liquid\LiquidException
 	 */
 	public function __construct($markup, array &$tokens, FileSystem $fileSystem = null) {
-		$this->nodelists = array();
-		$this->elseNodelist = array();
+		$this->nodelists = [];
+		$this->elseNodelist = [];
 
 		parent::__construct($markup, $tokens, $fileSystem);
 
@@ -104,7 +104,7 @@ class TagCase extends Decision
 				if ($whenSyntaxRegexp->match($params)) {
 					$this->pushNodelist();
 					$this->right = $whenSyntaxRegexp->matches[0];
-					$this->nodelist = array();
+					$this->nodelist = [];
 
 				} else {
 					throw new LiquidException("Syntax Error in tag 'case' - Valid when condition: when [condition]"); // harry
@@ -116,7 +116,7 @@ class TagCase extends Decision
 				$this->pushNodelist();
 				$this->right = null;
 				$this->elseNodelist = &$this->nodelist;
-				$this->nodelist = array();
+				$this->nodelist = [];
 				break;
 
 			default:
@@ -129,7 +129,7 @@ class TagCase extends Decision
 	 */
 	public function pushNodelist() {
 		if (!is_null($this->right)) {
-			$this->nodelists[] = array($this->right, $this->nodelist);
+			$this->nodelists[] = [$this->right, $this->nodelist];
 		}
 	}
 

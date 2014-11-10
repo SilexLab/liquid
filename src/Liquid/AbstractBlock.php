@@ -19,7 +19,7 @@ class AbstractBlock extends AbstractTag
 	/**
 	 * @var AbstractTag[]
 	 */
-	protected $nodelist = array();
+	protected $nodelist = [];
 
 	/**
 	 * @return array
@@ -41,7 +41,7 @@ class AbstractBlock extends AbstractTag
 		$tagRegexp = new Regexp('/^' . Liquid::get('TAG_START') . '\s*(\w+)\s*(.*)?' . Liquid::get('TAG_END') . '$/');
 		$variableStartRegexp = new Regexp('/^' . Liquid::get('VARIABLE_START') . '/');
 
-		$this->nodelist = array();
+		$this->nodelist = [];
 
 		if (!is_array($tokens)) {
 			return;

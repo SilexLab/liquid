@@ -35,12 +35,12 @@ class Template
 	/**
 	 * @var array Globally included filters
 	 */
-	private $filters = array();
+	private $filters = [];
 
 	/**
 	 * @var array Custom tags
 	 */
-	private static $tags = array();
+	private static $tags = [];
 
 	/**
 	 * @var Cache
@@ -137,7 +137,7 @@ class Template
 	 */
 	public static function tokenize($source) {
 		return empty($source)
-			? array()
+			? []
 			: preg_split(Liquid::get('TOKENIZATION_REGEXP'), $source, null, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
 	}
 
@@ -173,7 +173,7 @@ class Template
 	 *
 	 * @return string
 	 */
-	public function render(array $assigns = array(), $filters = null, array $registers = array()) {
+	public function render(array $assigns = [], $filters = null, array $registers = []) {
 		$context = new Context($assigns, $registers);
 
 		if (!is_null($filters)) {

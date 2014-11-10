@@ -88,12 +88,12 @@ class LiquidTagPaginate extends LiquidBlock
 		// Sets the collection if it's a key of another collection (ie search.results, collection.products, blog.articles)
 		$segments = explode('.',$this->collectionName);
 		if ( count($segments) == 2 ) {
-			$context->set($segments[0], array($segments[1] => $paginated_collection));
+			$context->set($segments[0], [$segments[1] => $paginated_collection]);
 		} else {
 			$context->set($this->collectionName, $paginated_collection);
 		}
 		
-		$paginate = array(
+		$paginate = [
 			'page_size' => $this->numberItems,
 			'current_page' => $this->currentPage,
 			'current_offset' => $this->currentOffset,
@@ -101,20 +101,20 @@ class LiquidTagPaginate extends LiquidBlock
 			'items' => $this->collectionSize,
 			'previous' => false,
 			'next' => false
-		);
+		];
 		
 		if ( $this->currentPage != 1 ) {
-			$paginate['previous'] = array(
+			$paginate['previous'] = [
 				'title' => '&laquo; Previous',
 				'url' => $this->current_url() . '?page=' . ( $this->currentPage - 1 )
-			);
+			];
 		}
 		
 		if ( $this->currentPage != $this->totalPages ) {
-			$paginate['next'] = array(
+			$paginate['next'] = [
 				'title' => 'Next &raquo;',
 				'url' => $this->current_url() . '?page=' . ( $this->currentPage + 1 )
-			);
+			];
 		}
 
 		$context->set('paginate',$paginate);

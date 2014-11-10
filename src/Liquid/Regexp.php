@@ -71,7 +71,7 @@ class Regexp
 
 		array_shift($matches);
 
-		$result = array();
+		$result = [];
 
 		foreach ($matches as $matchKey => $subMatches) {
 			foreach ($subMatches as $subMatchKey => $subMatch) {

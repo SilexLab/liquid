@@ -42,7 +42,7 @@ class Context
 	 *
 	 * @var array
 	 */
-	public $environments = array();
+	public $environments = [];
 
 	/**
 	 * Constructor
@@ -50,8 +50,8 @@ class Context
 	 * @param array $assigns
 	 * @param array $registers
 	 */
-	public function __construct(array $assigns = array(), array $registers = array()) {
-		$this->assigns = array($assigns);
+	public function __construct(array $assigns = [], array $registers = []) {
+		$this->assigns = [$assigns];
 		$this->registers = $registers;
 		$this->filterbank = new Filterbank($this);
 	}
@@ -74,7 +74,7 @@ class Context
 	 *
 	 * @return string
 	 */
-	public function invoke($name, $value, array $args = array()) {
+	public function invoke($name, $value, array $args = []) {
 		return $this->filterbank->invoke($name, $value, $args);
 	}
 
@@ -93,7 +93,7 @@ class Context
 	 * @return bool
 	 */
 	public function push() {
-		array_unshift($this->assigns, array());
+		array_unshift($this->assigns, []);
 		return true;
 	}
 
@@ -284,11 +284,11 @@ class Context
 
 					$object = $object->invokeDrop($nextPartName);
 				} elseif (method_exists($object, Liquid::get('HAS_PROPERTY_METHOD'))) {
-					if (!call_user_func(array($object, Liquid::get('HAS_PROPERTY_METHOD')), $nextPartName)) {
+					if (!call_user_func([$object, Liquid::get('HAS_PROPERTY_METHOD')], $nextPartName)) {
 						return null;
 					}
 
-					call_user_func(array($object, Liquid::get('GET_PROPERTY_METHOD')), $nextPartName);
+					call_user_func([$object, Liquid::get('GET_PROPERTY_METHOD')], $nextPartName);
 				} else {
 					// if it's just a regular object, attempt to access a property
 					if (!property_exists($object, $nextPartName)) {

@@ -55,7 +55,7 @@ class TagAssign extends AbstractTag
 		$filterNameRegexp = new Regexp('/\s*(\w+)/');
 		$filterArgumentRegexp = new Regexp('/(?:' . Liquid::get('FILTER_ARGUMENT_SEPARATOR') . '|' . Liquid::get('ARGUMENT_SEPARATOR') . ')\s*(' . Liquid::get('QUOTED_FRAGMENT') . ')/');
 
-		$this->filters = array();
+		$this->filters = [];
 
 		if ($filterSeperatorRegexp->match($markup)) {
 			$filters = $filterSplitRegexp->split($filterSeperatorRegexp->matches[1]);
@@ -67,7 +67,7 @@ class TagAssign extends AbstractTag
 				$filterArgumentRegexp->matchAll($filter);
 				$matches = Liquid::arrayFlatten($filterArgumentRegexp->matches[1]);
 
-				array_push($this->filters, array($filtername, $matches));
+				array_push($this->filters, [$filtername, $matches]);
 			}
 		}
 
@@ -92,7 +92,7 @@ class TagAssign extends AbstractTag
 		foreach ($this->filters as $filter) {
 			list($filtername, $filterArgKeys) = $filter;
 
-			$filterArgValues = array();
+			$filterArgValues = [];
 
 			foreach ($filterArgKeys as $arg_key) {
 				$filterArgValues[] = $context->get($arg_key);

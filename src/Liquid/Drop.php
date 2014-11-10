@@ -67,7 +67,7 @@ abstract class Drop
 	public function invokeDrop($method) {
 		$result = $this->beforeMethod($method);
 
-		if (is_null($result) && is_callable(array($this, $method))) {
+		if (is_null($result) && is_callable([$this, $method])) {
 			$result = $this->$method();
 		}
 

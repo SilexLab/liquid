@@ -100,7 +100,7 @@ class Filterbank
 	 *
 	 * @return string
 	 */
-	public function invoke($name, $value, array $args = array()) {
+	public function invoke($name, $value, array $args = []) {
 		array_unshift($args, $value);
 
 		// Consult the mapping
@@ -116,7 +116,7 @@ class Filterbank
 			if ($class === false) {
 				return call_user_func_array($name, $args);
 			} else {
-				return call_user_func_array(array($class, $name), $args);
+				return call_user_func_array([$class, $name], $args);
 			}
 		}
 

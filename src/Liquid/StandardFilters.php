@@ -91,9 +91,9 @@ class StandardFilters
 	 * @return string
 	 */
 	public static function strip_newlines($input) {
-		return is_string($input) ? str_replace(array(
+		return is_string($input) ? str_replace([
 			"\n", "\r"
-		), '', $input) : $input;
+		], '', $input) : $input;
 	}
 
 	/**
@@ -104,9 +104,9 @@ class StandardFilters
 	 * @return string
 	 */
 	public static function newline_to_br($input) {
-		return is_string($input) ? str_replace(array(
+		return is_string($input) ? str_replace([
 			"\n", "\r"
-		), '<br />', $input) : $input;
+		], '<br />', $input) : $input;
 	}
 
 	/**
