@@ -17,10 +17,6 @@ Why another templating library?
 
 Liquid was written to meet three templating library requirements: good performance, easy to extend, and simply to use.
 
-## Installing
-
-todo: via composer
-
 ## Example template
 
 	{% if products %}
@@ -47,26 +43,26 @@ The main class is `Liquid::Template` class. There are two separate stages of wor
 
     $template = new Template();
     $template->parse("Hello, {{ name }}!");
-    echo $template->render(array('name' => 'Alex');
+    echo $template->render(array('name' => 'Nox');
 
 	// Will echo
-	// Hello, Alex!
+	// Hello, Nox!
 
 To find more examples have a look at the `examples` directory or at the original Ruby implementation repository's [wiki page](https://github.com/Shopify/liquid/wiki).
 
 ## Requirements
 
- * PHP 5.3+
+ * PHP 5.4+
 
 ## Issues
 
 Have a bug? Please create an issue here on GitHub!
 
-[https://github.com/kalimatas/php-liquid/issues](https://github.com/kalimatas/php-liquid/issues)
+[https://github.com/NoxNebula/php-liquid/issues](https://github.com/NoxNebula/php-liquid/issues)
 
 ## Fork notes
 
-This fork is based on [php-liquid](https://github.com/harrydeluxe/php-liquid) by Harald Hanek.
+This fork is based on [php-liquid](https://github.com/kalimatas/php-liquid) by Guz Alexander and [php-liquid](https://github.com/harrydeluxe/php-liquid) by Harald Hanek.
 
 It contains several improvements:
 
@@ -74,5 +70,7 @@ It contains several improvements:
  * installing via composer
  * new standard filters
  * `raw` tag added
+ * for range support
+ * pagination tag added
 
 Any help is appreciated!
